@@ -1,28 +1,5 @@
 # -*- coding: utf-8 -*-
-import abc
-import colorsys
-
-class Classifier:
-	__metaclass__ = abc.ABCMeta
-
-	class ClassifiedImage:
-		def __init__(self, image, r, g, b):
-			h, s, v = colorsys.rgb_to_hsv(r, g, b)
-			self.image = image
-			self.r = r
-			self.g = g
-			self.b = b
-			self.h = h
-			self.s = s
-			self.v = v
-
-	@abc.abstractmethod
-	def classify(self, images):
-		return
-
-	@abc.abstractmethod
-	def classifyImage(self, images):
-		return
+from Classifier import Classifier
 
 class AvgRGBClassifier(Classifier):
 	def __init__(self, transparencyTreshold = 0.19):
@@ -51,7 +28,6 @@ class AvgRGBClassifier(Classifier):
 		return self.ClassifiedImage(image, r, g, b)
 
 	def _normalizePixel(self, pixel):
-		#return pixel
 		return (pixel[0] / 255.0, pixel[1] / 255.0, pixel[2] / 255.0, pixel[3] / 255.0)
 
 	def _isTransparent(self, pixel):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import glob
 from PIL import Image
-from Classifier import AvgRGBClassifier
+from classifiers import AvgRGBClassifier
 from Builder import Builder
 from Generator import Generator
-from DeltaCalculator import AvgDeltaCalculator, WeightedRGBDeltaCalculator, WeightedHSVDeltaCalculator
+from calculators import AvgDeltaCalculator, WeightedRGBDeltaCalculator, WeightedHSVDeltaCalculator
 
 def main():
 	images = getTileImages()
