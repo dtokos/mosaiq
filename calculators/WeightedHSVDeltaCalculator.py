@@ -2,41 +2,25 @@
 from HSVDeltaCalculator import HSVDeltaCalculator
 
 class WeightedHSVDeltaCalculator(HSVDeltaCalculator):
-	def __init__(self, hW = 10.0, sW = 10.0, vW = 10.0):
-		self.hWeight = hW;
-		self.sWeight = sW;
-		self.vWeight = vW;
+	def __init__(self, weight = 10.0):
+		self.weight = weight;
 
 	def _hueDelta(self, pixel, image):
-		return super(WeightedHSVDeltaCalculator, self)._hueDelta(pixel, image) * self._hueWeight(pixel);
-
-	def _hueWeight(self, pixel):
-		return self._calculateWeights(pixel)[0];
+		return super(WeightedHSVDeltaCalculator, self)._hueDelta(pixel, image) * self._calculateWeight(pixel, pixel[0])
 
 	def _saturationDelta(self, pixel, image):
-		return super(WeightedHSVDeltaCalculator, self)._saturationDelta(pixel, image) * self._saturationWeight(pixel);
-
-	def _saturationWeight(self, pixel):
-		return self._calculateWeights(pixel)[1];
+		return super(WeightedHSVDeltaCalculator, self)._saturationDelta(pixel, image) * self._calculateWeight(pixel, pixel[1])
 
 	def _valueDelta(self, pixel, image):
-		return super(WeightedHSVDeltaCalculator, self)._valueDelta(pixel, image) * self._valueWeight(pixel);
+		return super(WeightedHSVDeltaCalculator, self)._valueDelta(pixel, image) * self._calculateWeight(pixel, pixel[2])
 
-	def _valueWeight(self, pixel):
-		return self._calculateWeights(pixel)[2];
+	def _calculateWeight(self, pixel, value):
+		hsvPixel = pixel[0:3]
+		hsvPixel.sort()
 
-	def _calculateWeights(self, pixel):
-		hsvPixel = pixel[:-1]
-		weigths = [self.hWeight, self.sWeight, self.vWeight]
-		maxValue = max(hsvPixel)
-		minValue = min(hsvPixel)
-		midValue = [value for value in hsvPixel if value != maxValue and value != minValue]
-		midValue = midValue[0] if len(midValue) else (minValue + maxValue) / 2
-
-		for index, value in enumerate(hsvPixel):
-			if value == maxValue:
-				weigths[index] -= (maxValue - midValue) / maxValue * 10.0
-			if value == minValue:
-				weigths[index] += (midValue - minValue) / midValue * 10.0
-		
-		return weigths
+		if value == hsvPixel[0]:
+			return self.weight + (hsvPixel[1] - hsvPixel[0]) / hsvPixel[1] * self.weight
+		elif value == hsvPixel[2]:
+			return self.weight - (hsvPixel[2] - hsvPixel[1]) / hsvPixel[2] * self.weight
+		else:
+			return self.weight

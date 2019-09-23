@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
+import colorsys
 from DeltaCalculator import DeltaCalculator
 
 class HSVDeltaCalculator(DeltaCalculator):
 	def calculate(self, pixel, image):
+		hsvPixel = list(colorsys.rgb_to_hsv(pixel[0], pixel[1], pixel[2]))
+		
 		return float(
-			self._hueDelta(pixel, image) +
-			self._saturationDelta(pixel, image) +
-			self._valueDelta(pixel, image)
+			self._hueDelta(hsvPixel, image) +
+			self._saturationDelta(hsvPixel, image) +
+			self._valueDelta(hsvPixel, image)
 		) / 3.0
 
 	def _hueDelta(self, pixel, image):
