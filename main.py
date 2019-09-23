@@ -1,14 +1,22 @@
 # -*- coding: utf-8 -*-
 import glob
 from PIL import Image
+from Classifier import AvgRGBClassifier
 from Builder import Builder
 from Generator import Generator
+from DeltaCalculator import AvgDeltaCalculator, WeightedRGBDeltaCalculator, WeightedHSVDeltaCalculator
 
 def main():
 	images = getTileImages()
 	source = Image.open('source.png')
-	builder = Builder()
-	generator = Generator(images, builder)
+	classifier = AvgRGBClassifier()
+	deltaCalculator = (
+		AvgDeltaCalculator()
+		.addCalculator(WeightedRGBDeltaCalculator(), 255.0)
+		.addCalculator(WeightedHSVDeltaCalculator())
+	)
+	builder = Builder((112, 112))
+	generator = Generator(classifier.classify(images), deltaCalculator, builder)
 	generator.generate(source).save('output.png')
 
 def getTileImages():
