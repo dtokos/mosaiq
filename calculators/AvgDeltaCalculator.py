@@ -10,7 +10,7 @@ class AvgDeltaCalculator(DeltaCalculator):
 		if len(self._calculators) == 0:
 			raise 'No DeltaCalculators supplied'
 
-		delta = 0;
+		delta = 0
 
 		for index, calculator in enumerate(self._calculators):
 			delta += calculator.calculate(pixel, image) * self._weights[index]

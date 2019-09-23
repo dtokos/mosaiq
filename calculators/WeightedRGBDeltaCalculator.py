@@ -3,7 +3,7 @@ from RGBDeltaCalculator import RGBDeltaCalculator
 
 class WeightedRGBDeltaCalculator(RGBDeltaCalculator):
 	def __init__(self, weight = 10.0):
-		self.weight = weight;
+		self.weight = weight
 
 	def _redDelta(self, pixel, image):
 		return super(WeightedRGBDeltaCalculator, self)._redDelta(pixel, image) * self._calculateWeight(pixel, pixel[0])

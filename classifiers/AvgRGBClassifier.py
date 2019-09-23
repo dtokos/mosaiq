@@ -31,4 +31,4 @@ class AvgRGBClassifier(Classifier):
 		return (pixel[0] / 255.0, pixel[1] / 255.0, pixel[2] / 255.0, pixel[3] / 255.0)
 
 	def _isTransparent(self, pixel):
-		return pixel[3] < self.transparencyTreshold;
+		return pixel[3] < self.transparencyTreshold

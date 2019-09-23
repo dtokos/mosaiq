@@ -3,7 +3,7 @@ from HSVDeltaCalculator import HSVDeltaCalculator
 
 class WeightedHSVDeltaCalculator(HSVDeltaCalculator):
 	def __init__(self, weight = 10.0):
-		self.weight = weight;
+		self.weight = weight
 
 	def _hueDelta(self, pixel, image):
 		return super(WeightedHSVDeltaCalculator, self)._hueDelta(pixel, image) * self._calculateWeight(pixel, pixel[0])
