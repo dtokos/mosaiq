@@ -15,9 +15,9 @@ def main():
 		.addCalculator(WeightedRGBDeltaCalculator(), 255.0)
 		.addCalculator(WeightedHSVDeltaCalculator())
 	)
-	builder = Builder((112, 112))
+	builder = Builder((56, 56))
 	generator = Generator(classifier.classify(images), deltaCalculator, builder)
-	generator.generate(source).save('output.png')
+	generator.generate(source).save('output.png', compress_level=1)
 
 def getTileImages():
 	return [Image.open(path).convert('RGBA') for path in glob.glob('images/*.png')]
