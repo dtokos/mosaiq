@@ -13,8 +13,18 @@ def main():
 	sourceName = console.prompt('Enter source', 'source.png')
 	outputName = console.prompt('Enter source', 'output.png')
 
-	images = getTileImages(imagesPath)
 	source = Image.open(sourceName)
+	generator = makeGenerator(getTileImages(imagesPath))
+	
+	console.header('Generating')
+	generatedImage = generator.generate(source)
+	console.header('Saving')
+	generatedImage.save(outputName, compress_level=1)
+
+def getTileImages(imagesPath):
+	return [Image.open(path).convert('RGBA') for path in glob.glob(os.path.join(imagesPath, '*.png'))]
+
+def makeGenerator(images):
 	classifier = AvgRGBClassifier()
 	deltaCalculator = (
 		AvgDeltaCalculator()
@@ -23,11 +33,8 @@ def main():
 	)
 	builder = Builder((56, 56))
 	generator = Generator(classifier.classify(images), deltaCalculator, builder)
-	generator.generate(source).save(outputName, compress_level=1)
 
-def getTileImages(imagesPath):
-	return [Image.open(path).convert('RGBA') for path in glob.glob(os.path.join(imagesPath, '*.png'))]
-
+	return generator
 
 if __name__ == '__main__':
 	main()
