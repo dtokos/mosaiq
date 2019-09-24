@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from HSVDeltaCalculator import HSVDeltaCalculator
+from WeightedCalculator import WeightedCalculator
 
-class WeightedHSVDeltaCalculator(HSVDeltaCalculator):
-	def __init__(self, weight = 10.0):
-		self.weight = weight
+class WeightedHSVDeltaCalculator(HSVDeltaCalculator, WeightedCalculator):
+	def calculate(self, pixel, image):
+		self._weightPixel(self._toHSV(pixel))
+		
+		return super(WeightedHSVDeltaCalculator, self).calculate(pixel, image)
 
 	def _hueDelta(self, pixel, image):
 		return super(WeightedHSVDeltaCalculator, self)._hueDelta(pixel, image) * self._calculateWeight(pixel, pixel[0])
@@ -13,14 +16,3 @@ class WeightedHSVDeltaCalculator(HSVDeltaCalculator):
 
 	def _valueDelta(self, pixel, image):
 		return super(WeightedHSVDeltaCalculator, self)._valueDelta(pixel, image) * self._calculateWeight(pixel, pixel[2])
-
-	def _calculateWeight(self, pixel, value):
-		hsvPixel = pixel[0:3]
-		hsvPixel.sort()
-
-		if value == hsvPixel[0]:
-			return self.weight + (hsvPixel[1] - hsvPixel[0]) / hsvPixel[1] * self.weight
-		elif value == hsvPixel[2]:
-			return self.weight - (hsvPixel[2] - hsvPixel[1]) / hsvPixel[2] * self.weight
-		else:
-			return self.weight
