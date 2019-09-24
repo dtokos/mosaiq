@@ -2,13 +2,14 @@
 from PIL import Image
 
 class Builder:
-	def __init__(self, tileSize):
+	def __init__(self, tileSize, fillColor = '#00000000'):
+		self.fillColor = fillColor
 		self._image = None
 		self._tileSize = tileSize
 		self._resizeCache = None
 
 	def new(self, gridSize):
-		self._image = Image.new('RGBA', self._calculateImageSize(gridSize))
+		self._image = Image.new('RGBA', self._calculateImageSize(gridSize), self.fillColor)
 		self._resizeCache = {}
 
 	def paste(self, image, row, column):
