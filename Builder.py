@@ -16,7 +16,7 @@ class Builder:
 		if self._tileSize != image.size:
 			image = self._resizeTile(image)
 		
-		self._image.paste(image, (row * self._tileSize[0], column * self._tileSize[1]))
+		self._image.paste(image, (row * self._tileSize[0], column * self._tileSize[1]), image)
 
 	def getImage(self):
 		return self._image
