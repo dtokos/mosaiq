@@ -12,8 +12,14 @@ class WeightedCalculator(DeltaCalculator):
 
 	def _calculateWeight(self, pixel, value):
 		if value == self._weightedPixel[0]:
-			return self.weight + (self._weightedPixel[1] - self._weightedPixel[0]) / self._weightedPixel[1] * self.weight
+			if self._weightedPixel[1] == 0.0:
+				return self.weight + (self._weightedPixel[1] - self._weightedPixel[0]) * self.weight
+			else:
+				return self.weight + (self._weightedPixel[1] - self._weightedPixel[0]) / self._weightedPixel[1] * self.weight
 		elif value == self._weightedPixel[2]:
-			return self.weight - (self._weightedPixel[2] - self._weightedPixel[1]) / self._weightedPixel[2] * self.weight
+			if self._weightedPixel[2] == 0.0:
+				return self.weight - (self._weightedPixel[2] - self._weightedPixel[1]) * self.weight
+			else:
+				return self.weight - (self._weightedPixel[2] - self._weightedPixel[1]) / self._weightedPixel[2] * self.weight
 		else:
 			return self.weight

@@ -13,7 +13,7 @@ def main():
 	sourceName = console.prompt('Enter source', 'source.png')
 	outputName = console.prompt('Enter source', 'output.png')
 
-	source = Image.open(sourceName)
+	source = Image.open(sourceName).convert('RGBA')
 	generator = makeGenerator(getTileImages(imagesPath))
 	
 	console.header('Generating')
