@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from HSVDeltaCalculator import HSVDeltaCalculator
-from WeightedCalculator import WeightedCalculator
+from .HSVDeltaCalculator import HSVDeltaCalculator
+from .WeightedCalculator import WeightedCalculator
 
 class WeightedHSVDeltaCalculator(HSVDeltaCalculator, WeightedCalculator):
 	def calculate(self, pixel, image):

@@ -27,4 +27,4 @@ def prompt(message, default = None):
 	else:
 		message = '{}: '.format(message)
 
-	return raw_input(message) or default
+	return input(message) or default

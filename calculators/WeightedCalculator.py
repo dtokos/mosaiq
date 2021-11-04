@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from DeltaCalculator import DeltaCalculator
+from .DeltaCalculator import DeltaCalculator
 
 class WeightedCalculator(DeltaCalculator):
 	def __init__(self, weight = 10.0):

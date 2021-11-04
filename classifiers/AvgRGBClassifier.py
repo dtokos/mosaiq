@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from Classifier import Classifier
+from .Classifier import Classifier
 
 class AvgRGBClassifier(Classifier):
 	def __init__(self, transparencyTreshold = 0.19):

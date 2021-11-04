@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from RGBDeltaCalculator import RGBDeltaCalculator
-from WeightedCalculator import WeightedCalculator
+from .RGBDeltaCalculator import RGBDeltaCalculator
+from .WeightedCalculator import WeightedCalculator
 
 class WeightedRGBDeltaCalculator(RGBDeltaCalculator, WeightedCalculator):
 	def calculate(self, pixel, image):

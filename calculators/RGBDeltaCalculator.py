@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from DeltaCalculator import DeltaCalculator
+from .DeltaCalculator import DeltaCalculator
 
 class RGBDeltaCalculator(DeltaCalculator):
 	def calculate(self, pixel, image):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import colorsys
-from DeltaCalculator import DeltaCalculator
+from .DeltaCalculator import DeltaCalculator
 
 class HSVDeltaCalculator(DeltaCalculator):
 	def calculate(self, pixel, image):
